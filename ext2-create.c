@@ -421,7 +421,7 @@ void write_inode_table(int fd) {
 	hello_world_inode.i_dtime = 0;
 	hello_world_inode.i_gid = 1000;
 	hello_world_inode.i_links_count = 1;
-	hello_world_inode.i_blocks = 1;
+	hello_world_inode.i_blocks = 2;
 	hello_world_inode.i_block[0] = HELLO_WORLD_FILE_BLOCKNO;
 	write_inode(fd, HELLO_WORLD_INO, &hello_world_inode);
 
@@ -439,9 +439,9 @@ void write_inode_table(int fd) {
 	hello_inode.i_dtime = 0;
 	hello_inode.i_gid = 1000;
 	hello_inode.i_links_count = 1;
-	hello_inode.i_blocks = 1;
+	hello_inode.i_blocks = 0;
 	
-	char *s = "hello_world";                                                 \
+	char *s = "hello-world";                                                 \
 	size_t len = strlen(s);                                        \
 	memcpy(hello_inode.i_block, s, len); 
 	hello_inode.i_size = len;
@@ -479,13 +479,13 @@ void write_root_dir_block(int fd)
 	bytes_remaining -= hello.rec_len;
 
 	struct ext2_dir_entry hello_world = {0};
-	dir_entry_set(hello_world, HELLO_WORLD_INO, "hello_world");
+	dir_entry_set(hello_world, HELLO_WORLD_INO, "hello-world");
 	dir_entry_write(hello_world, fd);
 
 	bytes_remaining -= hello_world.rec_len;
 
 	struct ext2_dir_entry lost_found = {0};
-	dir_entry_set(lost_found, LOST_AND_FOUND_INO, "lost_found");
+	dir_entry_set(lost_found, LOST_AND_FOUND_INO, "lost+found");
 	dir_entry_write(lost_found, fd);
 
 	bytes_remaining -= lost_found.rec_len;
