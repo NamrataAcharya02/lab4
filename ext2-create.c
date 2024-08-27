@@ -321,7 +321,7 @@ void write_inode_bitmap(int fd)
 	u8 map_value[BLOCK_SIZE] = {0b00000000};
 
 	// Set the first 23 bits to 1
-	for (int i = 0; i < 23; i++)
+	for (int i = 0; i < LAST_INO; i++)
 	{
 		size_t byte = i / 8;
 		size_t bit = i % 8;
@@ -329,7 +329,7 @@ void write_inode_bitmap(int fd)
 	}
 
 	//Set bits 1023-8191 to 1
-	for (int i = NUM_BLOCKS - 1; i < NUM_BLOCKS*8; i++)
+	for (int i = NUM_INODES; i < NUM_BLOCKS*8; i++)
 	{
 		size_t byte = i / 8;
 		size_t bit = i % 8;
@@ -339,7 +339,7 @@ void write_inode_bitmap(int fd)
 	//size of the map_value
 	ssize_t size = sizeof(map_value);
 
-	if (write(fd, map_value, BLOCK_SIZE) != BLOCK_SIZE)
+	if (write(fd, map_value, size) != size)
 	{
 		errno_exit("write");
 	}
