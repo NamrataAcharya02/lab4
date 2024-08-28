@@ -4,7 +4,7 @@ In this lab, I successfully implemented a 1 MiB ext2 file system. It has 2 direc
 
 ## Building
 
-make
+```make```
 
 ## Running
 
@@ -13,14 +13,15 @@ Run the executable to create cs111-base.img:
 ```./ext2-create```
 
 Create directory named 'mnt' to mount filesystem to:
+
 ```mkdir mnt```
 
 Mount filesystem:
 
 ```sudo mount -o loop cs111 -base.img mnt```
-Dump filesystem information:
 
-```dumpe2fs cs111 -base.img```
+Dump filesystem information:```dumpe2fs cs111 -base.img```
+
 Result:
 ```
 
@@ -82,6 +83,7 @@ Pass 4: Checking reference counts
 Pass 5: Checking group summary information
 cs111-base: 13/128 files (0.0% non-contiguous), 24/1024 blocks
 ```
+
 Result of ```ls -ain mnt```:
 
 ```
